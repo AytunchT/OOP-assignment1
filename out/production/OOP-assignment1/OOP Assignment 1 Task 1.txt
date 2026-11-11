@@ -1,0 +1,4 @@
+Task 1
+Q.1: Both can be used. Subclassing, which we used, is good when you want to reuse code, while interfaces are good when you want to define what something can do. Advantages of implementation could be that any problem in fixed in the parent fixes every child but the same can be said for disadvantages as a any problem in the parent also appears in the child. Advantages of specification could be that it is a lot more loose and a bit easier to check. Disadvantages of it could be that it reuses a lot of code so duplication could happen.
+
+Q.2: We could make every variable private and only have the methods users actually need public. Members such as enginePower, currentSpeed and color could be private, while setColor, startEngine and stopEngine could still be public. The public interface should describe what the car does not how the car does it
