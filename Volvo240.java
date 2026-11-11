@@ -11,4 +11,9 @@ public class Volvo240 extends cars {
     public double speedFactor() {
         return getEnginePower() * 0.01 * trimFactor;
     }
+
+    @Override
+    public void turnLeft() {
+
+    }
 }

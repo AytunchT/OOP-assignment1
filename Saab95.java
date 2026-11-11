@@ -17,4 +17,9 @@ public class Saab95 extends cars {
         if (turboOn) turbo = 1.3;
         return getEnginePower() * 0.01 * turbo;
     }
+
+    @Override
+    public void turnLeft() {
+
+    }
 }
