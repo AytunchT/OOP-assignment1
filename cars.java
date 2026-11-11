@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public abstract class cars {
+public abstract class cars implements Movable {
     private int nrDoors;
     private double enginePower;
     private double currentSpeed;
@@ -24,7 +24,6 @@ public abstract class cars {
     public void startEngine() { currentSpeed = 0.1; }
     public void stopEngine() { currentSpeed = 0; }
 
-    // The one thing every car calculates differently
     public abstract double speedFactor();
 
     public void incrementSpeed(double amount) {
@@ -35,9 +34,27 @@ public abstract class cars {
         currentSpeed = getCurrentSpeed() - speedFactor() * amount;
     }
 
-    // TODO fix this method according to assignment pm
     public void gas(double amount) { incrementSpeed(amount); }
 
-    // TODO fix this method according to assignment pm
     public void brake(double amount) { decrementSpeed(amount); }
+
+    private double x;
+    private double y;
+    private int direction; // 0 = north, 1 = east, 2 = south, 3 = west
+
+    @Override
+    public void move() {
+        if (direction == 0) {
+            y = y + currentSpeed;
+        }
+    }
+
+    @Override
+    public void turnRight() {
+        direction = direction + 1;
+        if (direction == 4) {
+            direction = 0;
+        }
+    }
+
 }
