@@ -22,34 +22,85 @@ public abstract class cars implements Movable {
         stopEngine();
     }
 
-    public int getNrDoors() { return nrDoors; }
-    public double getEnginePower() { return enginePower; }
-    public double getCurrentSpeed() { return currentSpeed; }
-    public Color getColor() { return color; }
-    public void setColor(Color clr) { color = clr; }
+    public int getNrDoors() {
+        return nrDoors;
+    }
 
-    public double getX() { return x; }
-    public double getY() { return y; }
-    public int getDirection() { return direction; }
+    public double getEnginePower() {
+        return enginePower;
+    }
 
-    public void startEngine() { currentSpeed = 0.1; }
-    public void stopEngine() { currentSpeed = 0; }
+    public double getCurrentSpeed() {
+        return currentSpeed;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color clr) {
+        color = clr;
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public int getDirection() {
+        return direction;
+    }
+
+    private void setSpeed(double newSpeed) {
+        currentSpeed = Math.max(0, Math.min(newSpeed, enginePower));
+    }
+
+    public void startEngine() {
+        setSpeed (0.1);
+    }
+
+    public void stopEngine() {
+        setSpeed(0);
+    }
 
     protected abstract double speedFactor();
 
     private void incrementSpeed(double amount) {
-        currentSpeed = getCurrentSpeed() + speedFactor() * amount;
+        setSpeed(currentSpeed + speedFactor() * amount);
     }
 
     private void decrementSpeed(double amount) {
-        currentSpeed = getCurrentSpeed() - speedFactor() * amount;
+        setSpeed(currentSpeed - speedFactor() * amount);
     }
 
     // TODO fix this method according to assignment pm
-    public void gas(double amount) { incrementSpeed(amount); }
+    public void gas(double amount) {
+        if (amount < 0 || amount > 1) {
+            throw new IllegalArgumentException("only accepts values in the interval [0,1]");
+        }
+        double before = currentSpeed;
+        incrementSpeed(amount);
+        if (currentSpeed < before) {
+            currentSpeed = before;
+        }
+    }
 
     // TODO fix this method according to assignment pm
-    public void brake(double amount) { decrementSpeed(amount); }
+    public void brake(double amount) {
+        if (amount < 0 || amount > 1) {
+            throw new IllegalArgumentException("only accepts values in the interval [0,1]");
+        }
+        double before = currentSpeed;
+
+        decrementSpeed(amount);
+        if (currentSpeed > before){
+            currentSpeed = before;
+        }
+    }
+
 
     @Override
     public void move() {
